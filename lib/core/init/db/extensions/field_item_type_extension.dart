@@ -1,5 +1,9 @@
 import 'package:firebase_rtdb_concept/core/init/db/exception/field_item_exceptions.dart';
 import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
+import 'package:firebase_rtdb_concept/core/init/model/form_model.dart';
+import 'package:firebase_rtdb_concept/core/init/model/operation_model.dart';
+import 'package:firebase_rtdb_concept/core/init/model/patient_model.dart';
+import 'package:firebase_rtdb_concept/core/init/model/treatment_model.dart';
 
 extension FieldItemTypeExtension on FieldItem {
   /// returns true if field is a list in db.
@@ -33,8 +37,29 @@ extension FieldItemTypeExtension on FieldItem {
     }
   }
 
+  /// returns true if type is correct.
+  bool isValidType<T>() {
+    switch (this) {
+      case FieldItem.theme:
+        return T == String;
+      case FieldItem.lang:
+        return T == String;
+      case FieldItem.patient:
+        return T == Patient;
+      case FieldItem.form:
+        return T == Form;
+      case FieldItem.operation:
+        return T == Operation;
+      case FieldItem.treatment:
+        return T == Treatment;
+    }
+  }
+
   /// returns true if the field holds lists in the model.
-  bool get isChildList => childListFields.isNotEmpty;
+  bool get hasChildren => childListFields.isNotEmpty;
+
+  /// returns true if the current field has a parent field.
+  bool get hasParent => parentField != null;
 
   /// returns parent fields of the list
   FieldItem? get parentField {
