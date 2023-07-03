@@ -7,7 +7,7 @@ extension RelationFolderPathExtension on RelationFolder {
   String get _path =>
       this == RelationFolder.root ? name : '${RelationFolder.root.name}/$name';
 
-  String getPath({required FieldItem item, required String id}) =>
+  String getPath({required FieldItem item, required String? id}) =>
       '$_path/${item.name}'.idPath(id);
 
   String get name {

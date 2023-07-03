@@ -1,4 +1,5 @@
 import 'package:firebase_rtdb_concept/core/init/db/exception/field_item_exceptions.dart';
+import 'package:firebase_rtdb_concept/core/init/db/model/base_json_model.dart';
 import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/model/form_model.dart';
 import 'package:firebase_rtdb_concept/core/init/model/operation_model.dart';
@@ -34,6 +35,23 @@ extension FieldItemTypeExtension on FieldItem {
       // ignore: no_default_cases
       default:
         return [];
+    }
+  }
+
+  // returns fromJson constructor for IJsonModel objects.
+  T fromJson<T extends IJsonModel>(JsonData json) {
+    switch (this) {
+      case FieldItem.patient:
+        return Patient.fromJson(json) as T;
+      case FieldItem.form:
+        return Form.fromJson(json) as T;
+      case FieldItem.operation:
+        return Operation.fromJson(json) as T;
+      case FieldItem.treatment:
+        return Treatment.fromJson(json) as T;
+      // ignore: no_default_cases
+      default:
+        throw UnimplementedError();
     }
   }
 

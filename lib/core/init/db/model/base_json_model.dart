@@ -1,3 +1,6 @@
+typedef JsonData = Map<String, dynamic>;
+
 abstract class IJsonModel {
-  Map<String, dynamic> toJson();
+  IJsonModel();
+  JsonData toJson();
 }
