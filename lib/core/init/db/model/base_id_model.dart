@@ -1,4 +1,4 @@
 abstract class IdModel {
-  String? get id;
-  String? get parentId;
+  IdModel({this.id});
+  final String? id;
 }
