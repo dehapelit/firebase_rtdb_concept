@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '415963763367',
     projectId: 'flutter-firebase-rtdb-concept',
     authDomain: 'flutter-firebase-rtdb-concept.firebaseapp.com',
+    databaseURL: 'https://flutter-firebase-rtdb-concept-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutter-firebase-rtdb-concept.appspot.com',
   );
 
@@ -57,6 +58,7 @@ class DefaultFirebaseOptions {
     appId: '1:415963763367:android:020f6da7431396e8a00182',
     messagingSenderId: '415963763367',
     projectId: 'flutter-firebase-rtdb-concept',
+    databaseURL: 'https://flutter-firebase-rtdb-concept-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutter-firebase-rtdb-concept.appspot.com',
   );
 
@@ -65,6 +67,7 @@ class DefaultFirebaseOptions {
     appId: '1:415963763367:ios:bd1f2bc7cc6fdcf5a00182',
     messagingSenderId: '415963763367',
     projectId: 'flutter-firebase-rtdb-concept',
+    databaseURL: 'https://flutter-firebase-rtdb-concept-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutter-firebase-rtdb-concept.appspot.com',
     iosClientId: '415963763367-upg2ecdbea9b55dahg3cvmtm9j08hftr.apps.googleusercontent.com',
     iosBundleId: 'com.example.firebaseRtdbConcept',
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:415963763367:ios:3342579a4d3e457ea00182',
     messagingSenderId: '415963763367',
     projectId: 'flutter-firebase-rtdb-concept',
+    databaseURL: 'https://flutter-firebase-rtdb-concept-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutter-firebase-rtdb-concept.appspot.com',
     iosClientId: '415963763367-q3morenh10fa2sita5aunbihhfnktpvf.apps.googleusercontent.com',
     iosBundleId: 'com.example.firebaseRtdbConcept.RunnerTests',

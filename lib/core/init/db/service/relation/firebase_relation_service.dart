@@ -1,3 +1,4 @@
+import 'package:firebase_rtdb_concept/core/init/db/service/operation/firebase_list_operation_service.dart';
 import 'package:firebase_rtdb_concept/core/init/db/service/operation/firebase_primitive_operation_service.dart';
 import 'package:firebase_rtdb_concept/core/init/db/service/relation/base_relation_service.dart';
 
@@ -17,5 +18,5 @@ class FirebaseRelationService<T> extends IRelationService<T> {
 
   @override
   Future<List<String>> getAll(String path) =>
-      FirebasePrimitiveOperationService<T>().getAllKeys(path);
+      FirebaseListOperationService().getAllKeys(path);
 }

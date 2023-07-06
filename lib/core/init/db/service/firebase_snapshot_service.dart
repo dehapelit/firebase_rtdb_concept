@@ -4,13 +4,13 @@ import 'package:firebase_rtdb_concept/core/init/db/exception/snapshot_exceptions
 class FireBaseSnapshotService {
   FireBaseSnapshotService._();
 
-  static T getSnapshotValue<T>(DataSnapshot snapshot) {
+  static dynamic getSnapshotValue(DataSnapshot snapshot) {
     if (!snapshot.exists) {
       throw SnapshotNotFoundException();
-    } else if (snapshot.value == null || snapshot.value != T) {
+    } else if (snapshot.value == null) {
       throw SnapshotInvalidTypeException();
     } else {
-      return snapshot.value as T;
+      return snapshot.value;
     }
   }
 }

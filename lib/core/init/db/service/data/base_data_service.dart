@@ -1,3 +1,5 @@
+import 'package:firebase_rtdb_concept/core/init/db/model/data_model.dart';
+
 abstract class IDataService<T> {
   Future<List<E>> _all<E>({
     required Future<E> Function({String? id, T? data}) op,
@@ -29,15 +31,12 @@ abstract class IDataService<T> {
     return list;
   }
 
-  Future<T> get(String id);
+  Future<T?> get(String id);
   Future<String> push(T data);
   Future<void> update(String id, T data);
   Future<void> remove(String id);
 
-  Future<List<T>> getAll(List<String> ids) => _all<T>(
-        op: ({data, id}) => get(id!),
-        ids: ids,
-      );
+  Future<List<Data<T>>> getAll();
   Future<List<String>> pushAll(List<T> dataList) => _all<String>(
         op: ({data, id}) => push(data as T),
         dataList: dataList,

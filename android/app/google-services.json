@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "415963763367",
+    "firebase_url": "https://flutter-firebase-rtdb-concept-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "flutter-firebase-rtdb-concept",
     "storage_bucket": "flutter-firebase-rtdb-concept.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "415963763367-33bp11ulc7lap7l4v1aj65bbl5nf13ah.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "415963763367-q3morenh10fa2sita5aunbihhfnktpvf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseRtdbConcept.RunnerTests"
+              }
             }
           ]
         }
