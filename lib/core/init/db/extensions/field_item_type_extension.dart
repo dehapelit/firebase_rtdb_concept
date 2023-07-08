@@ -22,7 +22,7 @@ extension FieldItemTypeExtension on FieldItem {
   T fromJson<T extends IJsonModel>(JsonData json) {
     return switch (this) {
       FieldItem.patient => Patient.fromJson(json) as T,
-      FieldItem.form => Form.fromJson(json) as T,
+      FieldItem.form => FormModel.fromJson(json) as T,
       FieldItem.operation => Operation.fromJson(json) as T,
       FieldItem.treatment => Treatment.fromJson(json) as T,
       _ => throw UnimplementedError()
@@ -35,9 +35,19 @@ extension FieldItemTypeExtension on FieldItem {
       FieldItem.lang => String == T,
       FieldItem.theme => String == T,
       FieldItem.patient => Patient == T,
-      FieldItem.form => Form == T,
+      FieldItem.form => FormModel == T,
       FieldItem.operation => Operation == T,
       FieldItem.treatment => Treatment == T,
+    };
+  }
+
+  /// returns parent field of current item.
+  FieldItem? get parentField {
+    return switch (this) {
+      FieldItem.form => FieldItem.patient,
+      FieldItem.operation => FieldItem.form,
+      FieldItem.treatment => FieldItem.form,
+      _ => null
     };
   }
 
@@ -58,18 +68,6 @@ extension FieldItemTypeExtension on FieldItem {
   /// returns true if the current field has a parent field.
   bool get hasParent => parentField != null;
 
-  /// returns parent fields of the list
-  FieldItem? get parentField {
-    if (isList) {
-      for (final value in FieldItem.values) {
-        if (value.childListFields.contains(this)) {
-          return value;
-        }
-      }
-    }
-    return null;
-  }
-
   /// returns the list types of the current field if there is any.
   /// provided items must be a list, isList must be true
   List<FieldItem> get childListFields {
@@ -82,6 +80,7 @@ extension FieldItemTypeExtension on FieldItem {
     return children;
   }
 
+  /// return true if current field is ancestor of given child
   bool isAncestor(FieldItem child) {
     if (!child.hasParent) {
       return false;

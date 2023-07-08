@@ -7,16 +7,21 @@ import 'package:firebase_rtdb_concept/core/init/db/service/relation/firebase_rel
 import 'package:firebase_rtdb_concept/core/init/db/service/relation/relation_operation_service.dart';
 import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
 
-class FieldItemDataOperation<T extends IJsonModel> {
-  FieldItemDataOperation(
+class FieldItemDataRelationOperation<T extends IJsonModel> {
+  FieldItemDataRelationOperation(
     this._service,
     this._parentRelationService,
     this._childRelationService,
-  );
+  )   : assert(
+          FieldItem.getItemFromType<T>() != null,
+          'Provided T is not defined as a FieldItem',
+        ),
+        _item = FieldItem.getItemFromType<T>()!;
 
   final IListOperationService<JsonData> _service;
   final FirebaseRelationService<String> _parentRelationService;
   final FirebaseRelationService<bool> _childRelationService;
+  final FieldItem _item;
 
   FieldItemListDataService<T> _dataService(FieldItem item) =>
       FieldItemListDataService<T>(_service, item);
@@ -26,24 +31,19 @@ class FieldItemDataOperation<T extends IJsonModel> {
   Future<List<Data<T>>> get({
     required String parentId,
     required FieldItem parentItem,
-    required FieldItem item,
   }) async {
     assert(
-      parentItem.isAncestor(item),
+      parentItem.isAncestor(_item),
       'Provided item must be an ancestor of given child item',
-    );
-    assert(
-      item.isValidType<T>(),
-      'Provided generic type is not valid for given item',
     );
     final ids = await _relationService.getChildIdsFromParent(
       parentId,
       parentItem,
-      item,
+      _item,
     );
     final dataList = <Data<T>>[];
     for (final id in ids) {
-      final data = await _dataService(item).get(id);
+      final data = await _dataService(_item).get(id);
       dataList.add(Data(id: id, data: data));
     }
     return dataList;
@@ -51,24 +51,15 @@ class FieldItemDataOperation<T extends IJsonModel> {
 
   Future<String> push({
     required String parentId,
-    required FieldItem parentItem,
-    required FieldItem item,
     required T data,
   }) async {
-    assert(
-      item.parentField == parentItem,
-      'item must be a child of the parentField',
-    );
-    assert(
-      item.isValidType<T>(),
-      'Provided generic type is not valid for given item',
-    );
+    assert(_item.hasParent, 'Item must have a parent');
     //push data to the db
-    final id = await _dataService(item).push(data);
+    final id = await _dataService(_item).push(data);
     //set relation between parent and child field
     await _relationService.createRelation(
-      parentItem,
-      item,
+      _item.parentField!,
+      _item,
       parentId,
       id,
     );
@@ -76,23 +67,52 @@ class FieldItemDataOperation<T extends IJsonModel> {
     return id;
   }
 
-  Future<void> remove({
+  Future<List<String>> pushAll({
     required String parentId,
-    required FieldItem parentItem,
-    required FieldItem item,
-    required String id,
+    required List<T> dataList,
   }) async {
-    assert(
-      item.parentField == parentItem,
-      'item must be a child of the parentField',
-    );
-    //remove relation between parent and child field
-    await _relationService.removeRelation(
-      parentItem,
-      item,
-      parentId,
-      id,
-    );
+    final ids = <String>[];
+    for (final data in dataList) {
+      final id = await push(parentId: parentId, data: data);
+      ids.add(id);
+    }
+    return ids;
+  }
+
+  /// Removes item, relations and descendants
+  Future<void> remove({
+    required String id,
+  }) =>
+      _removeSearch(id: id, item: _item);
+
+  // Recursive remove operation
+  Future<void> _removeSearch({
+    required String id,
+    required FieldItem item,
+  }) async {
+    //if there are children then remove each child recursively
+    if (item.hasChildren) {
+      for (final child in item.childListFields) {
+        final ids =
+            await _relationService.getChildIdsFromParent(id, item, child);
+        for (final childId in ids) {
+          await _removeSearch(id: childId, item: child);
+        }
+      }
+    }
+    //if there is a parent then remove the relation
+    if (item.hasParent) {
+      final parentId = await _relationService.getParentIdFromChild(id, item);
+      if (parentId != null) {
+        //remove relation between parent and child field
+        await _relationService.removeRelation(
+          item.parentField!,
+          item,
+          parentId,
+          id,
+        );
+      }
+    }
     //remove item
     await _dataService(item).remove(id);
   }

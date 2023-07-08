@@ -1,10 +1,8 @@
 import 'package:firebase_rtdb_concept/core/init/db/extensions/field_item_type_extension.dart';
 import 'package:firebase_rtdb_concept/core/init/db/service/relation/base_field_relation_service.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/structure/relation_folder.dart';
 
-class FirebaseParentRelationService<T extends FieldItem>
-    extends IFieldRelationService<T, String> {
+class FirebaseParentRelationService extends IFieldRelationService<String> {
   FirebaseParentRelationService({
     required super.service,
     required super.item,

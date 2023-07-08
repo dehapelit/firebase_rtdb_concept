@@ -49,7 +49,12 @@ class RelationOperationService {
     String? childId,
   ) async {
     await _getParentService(childItem, childId).remove();
-    await _getChildService(parentItem, parentId, childItem).remove();
+    await _getChildService(parentItem, parentId, childItem).remove(childId);
+  }
+
+  Future<String?> getParentIdFromChild(String id, FieldItem item) async {
+    assert(item.hasParent, 'Provided item must have a parent');
+    return _getParentService(item, id).get();
   }
 
   Future<List<String>> getChildIdsFromParent(
@@ -65,7 +70,7 @@ class RelationOperationService {
     final idList = <String>[];
     for (final child in rootItem.childListFields) {
       //search if current child is ancestor of childItem
-      if (child.isAncestor(childItem)) {
+      if (child == childItem || child.isAncestor(childItem)) {
         final ids = await _getChildService(rootItem, rootId, child).get();
         for (final id in ids) {
           final subList = await getChildIdsFromParent(id, child, childItem);

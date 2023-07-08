@@ -3,7 +3,7 @@ import 'package:firebase_rtdb_concept/core/init/db/service/relation/base_relatio
 import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/structure/relation_folder.dart';
 
-abstract class IFieldRelationService<T extends FieldItem, E> {
+abstract class IFieldRelationService<T> {
   IFieldRelationService({
     required this.relation,
     required this.service,
@@ -12,8 +12,8 @@ abstract class IFieldRelationService<T extends FieldItem, E> {
   });
 
   final RelationFolder relation;
-  final IRelationService<E> service;
-  final T item;
+  final IRelationService<T> service;
+  final FieldItem item;
   final String? id;
 
   String get path => relation.getPath(item: item, id: id);

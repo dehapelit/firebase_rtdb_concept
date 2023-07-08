@@ -3,7 +3,7 @@
 enum FirebaseSupportedDataTypes {
   string,
   boolean,
-  double;
+  num;
 
   static bool isFirebaseDataType<T>() => FirebaseSupportedDataTypes.values
       .map((value) => value.isValidType<T>())
@@ -18,8 +18,8 @@ extension TypeExtension on FirebaseSupportedDataTypes {
         return T == String;
       case FirebaseSupportedDataTypes.boolean:
         return T == bool;
-      case FirebaseSupportedDataTypes.double:
-        return T == double;
+      case FirebaseSupportedDataTypes.num:
+        return T == num;
     }
   }
 }
