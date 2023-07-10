@@ -1,5 +1,5 @@
+import 'package:firebase_rtdb_concept/core/init/db/config/main_folder.dart';
 import 'package:firebase_rtdb_concept/core/init/db/constants/firebase_folder_names.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/main_folder.dart';
 
 extension MainFolderPathExtension on MainFolder {
   String _getPath(MainFolder? folder) => folder?.parentFolder == null

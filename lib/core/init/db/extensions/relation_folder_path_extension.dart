@@ -1,6 +1,6 @@
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/constants/firebase_folder_names.dart';
 import 'package:firebase_rtdb_concept/core/init/db/extensions/string_path_extension.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/structure/relation_folder.dart';
 
 extension RelationFolderPathExtension on RelationFolder {

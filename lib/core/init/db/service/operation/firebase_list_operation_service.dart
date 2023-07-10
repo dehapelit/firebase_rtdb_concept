@@ -20,6 +20,14 @@ class FirebaseListOperationService extends FirebaseOperationService<JsonData>
       FirebaseDatabase.instance.ref(path).get();
 
   @override
+  Future<JsonData> get(String path) async {
+    final snapshot = await FirebaseDatabase.instance.ref(path).get();
+    return Map.from(
+      FireBaseSnapshotService.getSnapshotValue(snapshot) as Map,
+    );
+  }
+
+  @override
   Future<List<Data<JsonData>>> getAll(String path) async {
     final snapshot = await FirebaseDatabase.instance.ref(path).get();
     return snapshot.children

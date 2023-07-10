@@ -1,7 +1,7 @@
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
+import 'package:firebase_rtdb_concept/core/init/db/config/main_folder.dart';
 import 'package:firebase_rtdb_concept/core/init/db/constants/firebase_folder_names.dart';
 import 'package:firebase_rtdb_concept/core/init/db/extensions/main_folder_path_extension.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/main_folder.dart';
 
 extension FieldItemPathExtension on FieldItem {
   String get path =>

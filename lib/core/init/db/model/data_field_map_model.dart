@@ -1,5 +1,5 @@
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/extensions/field_item_type_extension.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
 
 class DataFieldMap<T> {
   DataFieldMap({required this.item, required this.data, required this.dataMap})

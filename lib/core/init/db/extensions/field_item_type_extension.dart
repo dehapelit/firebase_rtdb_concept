@@ -1,56 +1,8 @@
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item_config.dart';
 import 'package:firebase_rtdb_concept/core/init/db/exception/field_item_exceptions.dart';
-import 'package:firebase_rtdb_concept/core/init/db/model/base_json_model.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
-import 'package:firebase_rtdb_concept/core/init/model/form_model.dart';
-import 'package:firebase_rtdb_concept/core/init/model/operation_model.dart';
-import 'package:firebase_rtdb_concept/core/init/model/patient_model.dart';
-import 'package:firebase_rtdb_concept/core/init/model/treatment_model.dart';
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
 
 extension FieldItemTypeExtension on FieldItem {
-  /// returns true if field is a list in db.
-  bool get isList {
-    return switch (this) {
-      FieldItem.patient => true,
-      FieldItem.form => true,
-      FieldItem.operation => true,
-      FieldItem.treatment => true,
-      _ => false
-    };
-  }
-
-  // returns fromJson constructor for IJsonModel objects.
-  T fromJson<T extends IJsonModel>(JsonData json) {
-    return switch (this) {
-      FieldItem.patient => Patient.fromJson(json) as T,
-      FieldItem.form => FormModel.fromJson(json) as T,
-      FieldItem.operation => Operation.fromJson(json) as T,
-      FieldItem.treatment => Treatment.fromJson(json) as T,
-      _ => throw UnimplementedError()
-    };
-  }
-
-  /// returns true if type is correct.
-  bool isValidType<T>() {
-    return switch (this) {
-      FieldItem.lang => String == T,
-      FieldItem.theme => String == T,
-      FieldItem.patient => Patient == T,
-      FieldItem.form => FormModel == T,
-      FieldItem.operation => Operation == T,
-      FieldItem.treatment => Treatment == T,
-    };
-  }
-
-  /// returns parent field of current item.
-  FieldItem? get parentField {
-    return switch (this) {
-      FieldItem.form => FieldItem.patient,
-      FieldItem.operation => FieldItem.form,
-      FieldItem.treatment => FieldItem.form,
-      _ => null
-    };
-  }
-
   // returns the list types of the current field if any.
   List<FieldItem> get _childList {
     final list = <FieldItem>[];

@@ -1,6 +1,6 @@
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/extensions/relation_folder_path_extension.dart';
 import 'package:firebase_rtdb_concept/core/init/db/service/relation/base_relation_service.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/structure/relation_folder.dart';
 
 abstract class IFieldRelationService<T> {

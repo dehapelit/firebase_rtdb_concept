@@ -1,11 +1,11 @@
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item_config.dart';
 import 'package:firebase_rtdb_concept/core/init/db/extensions/field_item_path_extension.dart';
-import 'package:firebase_rtdb_concept/core/init/db/extensions/field_item_type_extension.dart';
 import 'package:firebase_rtdb_concept/core/init/db/extensions/string_path_extension.dart';
 import 'package:firebase_rtdb_concept/core/init/db/model/base_json_model.dart';
 import 'package:firebase_rtdb_concept/core/init/db/model/data_model.dart';
 import 'package:firebase_rtdb_concept/core/init/db/service/data/base_data_service.dart';
 import 'package:firebase_rtdb_concept/core/init/db/service/operation/base_operation_service.dart';
-import 'package:firebase_rtdb_concept/core/init/db/structure/field_item.dart';
 
 class FieldItemListDataService<T extends IJsonModel> extends IDataService<T> {
   FieldItemListDataService(this._service, this._fieldItem);

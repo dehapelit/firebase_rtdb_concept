@@ -1,4 +1,4 @@
-import 'package:firebase_rtdb_concept/core/init/db/extensions/field_item_type_extension.dart';
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item_config.dart';
 
 enum FieldItem {
   theme,
@@ -8,7 +8,7 @@ enum FieldItem {
   operation,
   treatment;
 
-  //get item from the generic type
+  /// get item from the generic type
   static FieldItem? getItemFromType<T>() {
     for (final value in FieldItem.values) {
       if (value.isValidType<T>()) {
