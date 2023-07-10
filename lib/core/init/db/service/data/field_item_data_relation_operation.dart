@@ -59,7 +59,7 @@ class FieldItemDataRelationOperation<T extends IJsonModel> {
     final id = await _dataService(_item).push(data);
     //set relation between parent and child field
     await _relationService.createRelation(
-      _item.parentField!,
+      _item.parent!,
       _item,
       parentId,
       id,
@@ -107,7 +107,7 @@ class FieldItemDataRelationOperation<T extends IJsonModel> {
       if (parentId != null) {
         //remove relation between parent and child field
         await _relationService.removeRelation(
-          item.parentField!,
+          item.parent!,
           item,
           parentId,
           id,

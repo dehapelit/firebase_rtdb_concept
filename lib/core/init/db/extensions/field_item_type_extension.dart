@@ -1,13 +1,13 @@
+import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/config/field_item_config.dart';
 import 'package:firebase_rtdb_concept/core/init/db/exception/field_item_exceptions.dart';
-import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
 
 extension FieldItemTypeExtension on FieldItem {
   // returns the list types of the current field if any.
   List<FieldItem> get _childList {
     final list = <FieldItem>[];
     for (final value in FieldItem.values) {
-      if (value.parentField == this) {
+      if (value.parent == this) {
         list.add(value);
       }
     }
@@ -18,7 +18,7 @@ extension FieldItemTypeExtension on FieldItem {
   bool get hasChildren => childListFields.isNotEmpty;
 
   /// returns true if the current field has a parent field.
-  bool get hasParent => parentField != null;
+  bool get hasParent => parent != null;
 
   /// returns the list types of the current field if there is any.
   /// provided items must be a list, isList must be true
@@ -36,10 +36,10 @@ extension FieldItemTypeExtension on FieldItem {
   bool isAncestor(FieldItem child) {
     if (!child.hasParent) {
       return false;
-    } else if (child.parentField == this) {
+    } else if (child.parent == this) {
       return true;
     } else {
-      return isAncestor(child.parentField!);
+      return isAncestor(child.parent!);
     }
   }
 }

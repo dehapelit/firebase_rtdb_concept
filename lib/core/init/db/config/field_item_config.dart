@@ -1,8 +1,8 @@
 // ignore_for_file: unreachable_switch_case
 
+import 'package:firebase_rtdb_concept/core/init/db/config/constants/field_item_names.dart';
 import 'package:firebase_rtdb_concept/core/init/db/config/field_item.dart';
 import 'package:firebase_rtdb_concept/core/init/db/config/main_folder.dart';
-import 'package:firebase_rtdb_concept/core/init/db/constants/firebase_folder_names.dart';
 import 'package:firebase_rtdb_concept/core/init/db/model/base_json_model.dart';
 import 'package:firebase_rtdb_concept/core/init/model/form_model.dart';
 import 'package:firebase_rtdb_concept/core/init/model/operation_model.dart';
@@ -13,19 +13,19 @@ extension FieldItemConfig on FieldItem {
   /// returns key value of the field on firebase rtdb.
   String get name {
     return switch (this) {
-      FieldItem.theme => FirebaseFolderNames.fieldItemThemeName,
-      FieldItem.lang => FirebaseFolderNames.fieldItemLangName,
-      FieldItem.patient => FirebaseFolderNames.fieldItemPatientName,
-      FieldItem.form => FirebaseFolderNames.fieldItemFormName,
-      FieldItem.operation => FirebaseFolderNames.fieldItemOperationName,
-      FieldItem.treatment => FirebaseFolderNames.fieldItemTreatmentName,
+      FieldItem.theme => FieldItemNames.theme,
+      FieldItem.lang => FieldItemNames.lang,
+      FieldItem.patient => FieldItemNames.patient,
+      FieldItem.form => FieldItemNames.form,
+      FieldItem.operation => FieldItemNames.operation,
+      FieldItem.treatment => FieldItemNames.treatment,
       _ => throw UnimplementedError()
     };
   }
 
   /// returns parent folder of the field.
   /// returns null if there is no parent folder.
-  MainFolder? get parentFolder {
+  MainFolder? get folder {
     return switch (this) {
       FieldItem.theme => MainFolder.settings,
       FieldItem.lang => MainFolder.settings,
@@ -33,16 +33,6 @@ extension FieldItemConfig on FieldItem {
       FieldItem.form => MainFolder.items,
       FieldItem.operation => MainFolder.items,
       FieldItem.treatment => MainFolder.items,
-      _ => null
-    };
-  }
-
-  /// returns parent field of current item.
-  FieldItem? get parentField {
-    return switch (this) {
-      FieldItem.form => FieldItem.patient,
-      FieldItem.operation => FieldItem.form,
-      FieldItem.treatment => FieldItem.form,
       _ => null
     };
   }
@@ -55,6 +45,16 @@ extension FieldItemConfig on FieldItem {
       FieldItem.operation => true,
       FieldItem.treatment => true,
       _ => false
+    };
+  }
+
+  /// returns parent field of current item.
+  FieldItem? get parent {
+    return switch (this) {
+      FieldItem.form => FieldItem.patient,
+      FieldItem.operation => FieldItem.form,
+      FieldItem.treatment => FieldItem.form,
+      _ => null
     };
   }
 
